@@ -10,19 +10,6 @@ for line in lines:
     line = line.split(": ")
     map[line[0]] = line[1].split(" ")
 
-# my original method: using iteration
-count = 0
-stack = ["you"]
-while stack != []:
-    node = stack.pop()
-    for neighbor in map[node]:
-        if neighbor == "out":
-            count += 1
-        else:
-            stack.append(neighbor)
-print(count)
-
-# new method: using recursion and memoization
 @cache
 def dfs(st, dest):
     if st == dest:
@@ -30,4 +17,5 @@ def dfs(st, dest):
     else:
         return sum(dfs(node, dest) for node in map.get(st, []))
 
-print(dfs("you", "out"))
+print(dfs("svr", "dac") * dfs("dac", "fft") * dfs("fft", "out") + \
+      dfs("svr", "fft") * dfs("fft", "dac") * dfs("dac", "out"))
